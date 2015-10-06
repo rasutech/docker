@@ -1,0 +1,9 @@
+Host mycontainer
+  User   tester
+  Port   2223
+  Hostname 127.0.0.1
+Host mycontainer-display
+  User   tester
+  Port   2222
+  Hostname 127.0.0.1
+  ForwardX11 yes
