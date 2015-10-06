@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Construct Image with Essential Software
 RUN apt-get update && apt-get install -y ca-certificates firefox \
-    openssh-server wget \
-    python-pip dbus-x11 xvfb 
+    openssh-server  \
+    python-pip 
 
 RUN pip install -U selenium
 
@@ -23,12 +23,9 @@ COPY id_rsa.pub /home/tester/.ssh/
 ADD id_rsa.pub /home/tester/.ssh/authorized_keys
 RUN chown -R tester:tester /home/tester/.ssh
 
+# Copy the Firefox Test Script and Invoke it from a run-test script
 ADD firefox-google.py /home/tester/firefox-google.py
 
-# Set up the launch wrapper
-RUN echo 'Xvfb :99 -screen 0 1024x768x16 &> xvfb.log &' >> /usr/local/bin/run-test
-RUN echo 'DISPLAY=:99.0' >> /usr/local/bin/run-test
-RUN echo 'export DISPLAY' >> /usr/local/bin/run-test
 RUN echo 'python /home/tester/firefox-google.py' >> /usr/local/bin/run-test
 RUN chmod 755 /usr/local/bin/run-test
 
