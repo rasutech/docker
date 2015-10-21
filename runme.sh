@@ -1,5 +1,5 @@
 CONTAINER_NAME="mycontainer"
-IMAGE_NAME="dockerin10"
+IMAGE_NAME="aptdockertest"
 VIDEO_DEVICE="/dev/video0"
 SSHD_MAP_PORT=127.0.0.1:2223
 DOCKER="docker"
@@ -11,7 +11,7 @@ $DOCKER run $PARAMS $IMAGE_NAME
 ssh-keygen -R [127.0.1.1]:$SSHD_MAP_PORT
 #For some reason, if we try to ssh to the container right after the host id
 #is removed from known_hosts, the sshd daemon closes the connection.
-sleep 10
+sleep 3
 
 #ssh into the container and launch chrome
 ssh $CONTAINER_NAME run-test
